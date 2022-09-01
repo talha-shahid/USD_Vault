@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../components/Card'
 import Table from '../components/Table'
+import CallToAction from '../components/CallToAction'
 
 export default function Home({dark}) {
   return (
@@ -12,13 +13,18 @@ export default function Home({dark}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className='md:flex p-5 bg-slate-600'>
-        <Card/>
-        <Card/>
-        <Card/>
+      <div className={`md:flex p-5 ${
+            dark === "true"
+              ? "bg-slate-600 text-white"
+              : "bg-gray-100 text-black"
+          }`}>
+        <Card dark={dark}/>
+        <Card dark={dark}/>
+        <Card dark={dark}/>
       </div>
 
     <Table dark={dark}/>
+    <CallToAction dark={dark}/>
 
     </div>
   )
