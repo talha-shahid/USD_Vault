@@ -76,8 +76,8 @@ function Table({ dark }) {
             <td className="py-4 px-6">$1999</td>
             <td className="py-4 px-6 text-center">
                 $2999
-              <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-300">
-                <div class="bg-gray-500 h-2 rounded-full w-2/5"></div>
+              <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-300">
+                <div className="bg-gray-500 h-2 rounded-full w-2/5"></div>
               </div>
             </td>
 
