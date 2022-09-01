@@ -24,7 +24,7 @@ const Navbar = () =>{
       <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
     </button>
     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul className={`${dark==='true'? 'bg-gray-900':'bg-white'} flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700`}>
+      <ul className={`${dark==='true'? 'bg-gray-900':'bg-white'} flex flex-col p-4 mt-4 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700`}>
         {dark === 'true' && <li><BsFillSunFill size={'20px'} className="text-white cursor-pointer" onClick={darkMode}/></li>}
         {dark==='false' && <li><BsFillMoonFill size={'20px'} className="cursor-pointer" onClick={darkMode}/></li>}
         <li>
