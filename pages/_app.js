@@ -1,9 +1,19 @@
 import '../styles/globals.css'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import { useState } from 'react'
 
 function MyApp({ Component, pageProps }) {
-  return <><Navbar/><Component {...pageProps} /><Footer/></>
+
+  const [dark, setDark] = useState('true')
+
+  const darkMode =()=>{
+    console.log("clicked")
+    if(dark==='true'){setDark('false')}
+    else{setDark('true')}
+  }
+
+  return <><Navbar dark={dark} darkMode={darkMode}/><Component  dark={dark}{...pageProps}/><Footer dark={dark}/></>
 }
 
 export default MyApp

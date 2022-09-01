@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Card from '../components/Card'
 import Table from '../components/Table'
 
-export default function Home() {
+export default function Home({dark}) {
   return (
     <div>
       <Head>
@@ -18,7 +18,7 @@ export default function Home() {
         <Card/>
       </div>
 
-    <Table/>
+    <Table dark={dark}/>
 
     </div>
   )
