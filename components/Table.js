@@ -6,7 +6,7 @@ function Table({ dark }) {
     <div className="overflow-x-auto relative">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
-          className={`text-xs uppercase border-b dark:border-gray-400 ${
+          className={`text-xs uppercase border-b border-t border-gray-300 ${
             dark === "true"
               ? "bg-gray-800 text-white"
               : "bg-gray-200 text-black"
@@ -39,7 +39,7 @@ function Table({ dark }) {
         <tbody>
           <tr
             className={`border-b  dark:border-gray-300 ${
-              dark === "true" ? "bg-gray-800 text-white" : "bg-white text-black"
+              dark === "true" ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-white hover:bg-gray-100 text-black"
             }`}
           >
             <th className="py-4 px-6">1</th>
@@ -59,7 +59,7 @@ function Table({ dark }) {
           </tr>
           <tr
             className={`border-b dark:border-gray-300 ${
-              dark === "true" ? "bg-gray-800 text-white" : "bg-white text-black"
+              dark === "true" ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-white text-black hover:bg-gray-100"
             }`}
           >
             <th className="py-4 px-6">1</th>
@@ -85,7 +85,7 @@ function Table({ dark }) {
           </tr>
           <tr
             className={` border-b dark:border-gray-300 ${
-              dark === "true" ? "bg-gray-800 text-white" : "bg-white text-black"
+              dark === "true" ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-white text-black hover:bg-gray-100"
             } `}
           >
             <th className="py-4 px-6">1</th>

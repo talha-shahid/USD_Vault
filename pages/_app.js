@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 function MyApp({ Component, pageProps }) {
 
-  const [dark, setDark] = useState('true')
+  const [dark, setDark] = useState('false')
 
   const darkMode =()=>{
     console.log("clicked")

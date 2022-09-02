@@ -3,14 +3,14 @@ import React from "react";
 
 function Card({ dark }) {
   return (
-    <div>
-      <div className={` p-6 rounded-md shadow-md mx-2 mb-3 ${
+    <div className="realtive z-0">
+      <div className={` p-6 rounded-md shadow-md mx-2 mb-3 drop-shadow-md  ${
             dark === "true"
               ? "bg-gray-900 text-gray-50"
-              : "bg-gray-200 text-black"
+              : "bg-gray-200 text-black border border-gray-300"
           }`}>
         <div className="mt-6 mb-2">
-          <span className="block text-xs font-medium tracking-widest uppercase dark:text-violet-400">
+          <span className="block text-xs tracking-widest uppercase font-semibold dark:text-blue-600">
             Quisque
           </span>
           <h2 className="text-xl font-semibold tracking-wide">
