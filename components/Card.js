@@ -28,7 +28,7 @@ function Card({ dark, desc, heading }) {
           {desc}
         </p>
         </div>
-          <ul class="list-decimal ml-10">
+          <ul className="list-decimal ml-10">
             <li className="text-base"><span className="font-semibold">PanCakeSwap</span></li>
             <li className="text-base"><span className="font-semibold">Ethereum</span></li>
             <li className="text-base"><span className="font-semibold">Shiba Inu</span></li>
