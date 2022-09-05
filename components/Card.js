@@ -1,30 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import { FaEthereum } from "react-icons/fa";
 
-function Card({ dark }) {
+
+function Card({ dark, desc, heading }) {
+  // console.log('desc')
+  // console.log({desc})
   return (
-    <div className="realtive z-0">
-      <div className={` p-6 rounded-md shadow-md mx-2 mb-3 drop-shadow-md  ${
+    <div className="z-0 w-full m-2 " >
+      <div  className={`rounded-md shadow-mddrop-shadow-md p-5 ${
             dark === "true"
               ? "bg-gray-900 text-gray-50"
               : "bg-gray-200 text-black border border-gray-300"
           }`}>
-        <div className="mt-6 mb-2">
-          <span className="block text-xs tracking-widest uppercase font-semibold dark:text-blue-600">
-            Quisque
-          </span>
-          <h2 className="text-xl font-semibold tracking-wide">
-            Nam maximus purus
+        <div>
+
+          <h2 className="text-lg font-semibold tracking-wide">
+            {heading}
           </h2>
         </div>
-        <p className={`${
+        <div className="break-all">
+        <p className={`  ${
             dark === "true"
               ? "text-gray-50"
               : "text-black"
           }`}>
-          Mauris et lorem at elit tristique dignissim et ullamcorper elit. In
-          sed feugiat mi. Etiam ut lacinia dui.
+          {desc}
         </p>
+        </div>
+          <ul class="list-decimal ml-10">
+            <li className="text-base"><span className="font-semibold">PanCakeSwap</span></li>
+            <li className="text-base"><span className="font-semibold">Ethereum</span></li>
+            <li className="text-base"><span className="font-semibold">Shiba Inu</span></li>
+
+          </ul>
+
       </div>
     </div>
   );

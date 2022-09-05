@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function Table({ dark }) {
+function Table({ dark, filteredCoins }) {
   console.log(`In table ${dark}`);
   return (
     <div className="overflow-x-auto relative">
@@ -37,72 +37,29 @@ function Table({ dark }) {
           </tr>
         </thead>
         <tbody>
+        {filteredCoins.map(coin => {
+          return<>
           <tr
             className={`border-b  dark:border-gray-300 ${
               dark === "true" ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-white hover:bg-gray-100 text-black"
             }`}
           >
-            <th className="py-4 px-6">1</th>
+            <th className="py-4 px-6">{coin.market_cap_rank}</th>
             <th
               scope="row"
               className={`py-4 px-6 font-medium  whitespace-nowrap ${
                 dark === "true" ? "text-white" : "text-gray-900"
               }`}
-            >
-              Apple MacBook Pro 17"
+            ><div className="flex"><img width={22} src={coin.image}/>
+              {coin.name}</div>
             </th>
-            <td className="py-4 px-6">Sliver</td>
-            <td className="py-4 px-6">Laptop</td>
-            <td className="py-4 px-6">$2999</td>
-            <td className="py-4 px-6 text-center">$2999</td>
-            <td className="py-4 px-6">$2999</td>
-          </tr>
-          <tr
-            className={`border-b dark:border-gray-300 ${
-              dark === "true" ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-white text-black hover:bg-gray-100"
-            }`}
-          >
-            <th className="py-4 px-6">1</th>
-            <th
-              scope="row"
-              className={`py-4 px-6 font-medium  whitespace-nowrap ${
-                dark === "true" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Microsoft Surface Pro
-            </th>
-            <td className="py-4 px-6">White</td>
-            <td className="py-4 px-6">Laptop PC</td>
-            <td className="py-4 px-6">$1999</td>
-            <td className="py-4 px-6 text-center">
-                $2999
-              <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-300">
-                <div className="bg-gray-500 h-2 rounded-full w-2/5"></div>
-              </div>
-            </td>
-
-            <td className="py-4 px-6">$2999</td>
-          </tr>
-          <tr
-            className={` border-b dark:border-gray-300 ${
-              dark === "true" ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-white text-black hover:bg-gray-100"
-            } `}
-          >
-            <th className="py-4 px-6">1</th>
-            <th
-              scope="row"
-              className={`py-4 px-6 font-medium  whitespace-nowrap ${
-                dark === "true" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Magic Mouse 2
-            </th>
-            <td className="py-4 px-6">Black</td>
-            <td className="py-4 px-6">Accessories</td>
-            <td className="py-4 px-6">$99</td>
-            <td className="py-4 px-6 text-center">$2999</td>
-            <td className="py-4 px-6">$2999</td>
-          </tr>
+            <td className="py-4 px-6"><b>${coin.current_price.toLocaleString()}</b></td>
+            <td className="py-4 px-6">${coin.market_cap.toLocaleString()}</td>
+            <td className="py-4 px-6">${coin.total_volume.toLocaleString()}</td>
+            <td className="py-4 px-6 text-center">{coin.circulating_supply.toLocaleString()}{" "}<span className="font-medium">{coin.symbol.toUpperCase()
+}</span></td>
+            <td className="py-4 px-6">graph</td>
+          </tr></>})}
         </tbody>
       </table>
     </div>
@@ -110,3 +67,4 @@ function Table({ dark }) {
 }
 
 export default Table;
+
