@@ -11,7 +11,7 @@ table tbody th {
 }
 
 table tbody tr:hover > th{
-  background: #f3f4f6
+  background: #9ca3af
 }
       `}</style>
     <div className="overflow-x-auto relative">
@@ -19,7 +19,7 @@ table tbody tr:hover > th{
         <thead
           className={`text-xs uppercase border-b border-t border-gray-300  ${
             dark === "true"
-              ? "bg-gray-800 text-white"
+              ? "bg-gray-500 text-white"
               : "bg-gray-200 text-black"
           }`}
         >
@@ -62,7 +62,7 @@ table tbody tr:hover > th{
                 dark === "true" ? "text-white bg-gray-800" : "text-gray-900 bg-white"
               }`}
             ><div className="flex"><img width={22} src={coin.image}/>
-              <b>{coin.name}</b></div>
+              <span className="ml-2"><b>{coin.name}</b></span></div>
             </th>
             <td className="py-4 px-6"><b>${coin.current_price.toLocaleString()}</b></td>
             <td className="py-4 px-6">${coin.market_cap.toLocaleString()}</td>

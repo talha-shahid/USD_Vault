@@ -7,8 +7,8 @@ function Card({ dark, desc, heading }) {
   // console.log('desc')
   // console.log({desc})
   return (
-    <div className="z-0 w-full m-2 " >
-      <div  className={`rounded-md shadow-mddrop-shadow-md p-5 ${
+    <div className="z-0 w-full m-2" >
+      <div  className={`rounded-md drop-shadow-md border border-gray-300 p-5 ${
             dark === "true"
               ? "bg-gray-900 text-gray-50"
               : "bg-gray-200 text-black border border-gray-300"

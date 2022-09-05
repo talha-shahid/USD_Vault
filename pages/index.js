@@ -80,7 +80,7 @@ export default function Home({ dark, filteredCoins}) {
         </div>
 
         <div className="md:flex md:justify-center md:items-center p-5">
-          <Card dark={dark} heading={"🔥Trending"} />
+          <Card dark={dark} heading={"🔥Trending"}/>
           <Card dark={dark} heading={"🕖Recently Added"} />
           <Card dark={dark} heading={"⭐Top Community Accounts"} />
           {/* <ImageSlider slides={SliderData} /> */}
@@ -91,7 +91,7 @@ export default function Home({ dark, filteredCoins}) {
       <CallToAction dark={dark} />
       <ScrollToTop
         smooth
-        className="flex justify-center items-center hover:bg-gray-200"
+        className="flex justify-center items-center hover:bg-gray-200 "
       />
     </div>
   );
