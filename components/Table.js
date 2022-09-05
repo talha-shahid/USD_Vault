@@ -2,11 +2,22 @@ import React, { useEffect } from "react";
 
 function Table({ dark, filteredCoins }) {
   console.log(`In table ${dark}`);
-  return (
+  return (<>
+    <style jsx>{`
+table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+table tbody tr:hover > th{
+  background: #f3f4f6
+}
+      `}</style>
     <div className="overflow-x-auto relative">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
-          className={`text-xs uppercase border-b border-t border-gray-300 ${
+          className={`text-xs uppercase border-b border-t border-gray-300  ${
             dark === "true"
               ? "bg-gray-800 text-white"
               : "bg-gray-200 text-black"
@@ -47,11 +58,11 @@ function Table({ dark, filteredCoins }) {
             <th className="py-4 px-6">{coin.market_cap_rank}</th>
             <th
               scope="row"
-              className={`py-4 px-6 font-medium  whitespace-nowrap ${
-                dark === "true" ? "text-white" : "text-gray-900"
+              className={`py-4 px-6 font-medium  whitespace-nowrap  ${
+                dark === "true" ? "text-white bg-gray-800" : "text-gray-900 bg-white"
               }`}
             ><div className="flex"><img width={22} src={coin.image}/>
-              {coin.name}</div>
+              <b>{coin.name}</b></div>
             </th>
             <td className="py-4 px-6"><b>${coin.current_price.toLocaleString()}</b></td>
             <td className="py-4 px-6">${coin.market_cap.toLocaleString()}</td>
@@ -63,6 +74,7 @@ function Table({ dark, filteredCoins }) {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 

@@ -13,8 +13,8 @@ const Navbar = (props) =>{
   <div className="container flex flex-wrap justify-between items-center mx-auto">
     <Link href="/"><a>
       <div className="flex flex-row">
-        <span className="bg-white rounded-full p-1 mr-1 border border-black">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Cryptocurrency_Logo.svg/3888px-Cryptocurrency_Logo.svg.png" className="h-6 sm:h-9 ml-0.5" alt="Logo"/>
+        <span className="flex justify-center items-center mr-1 bg-white rounded-full border border-black">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Cryptocurrency_Logo.svg/3888px-Cryptocurrency_Logo.svg.png" className="h-9 ml-0.5 p-1" alt="Logo"/>
         </span>
         <span className={`self-center text-2xl leading-10 font-semibold whitespace-nowrap font-pacifico tracking-wider ${props.dark==='true'? 'text-white':'text-black'}`}>UsdVault</span>
         </div>
