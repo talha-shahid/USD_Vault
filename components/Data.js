@@ -1,0 +1,111 @@
+export const UserData = [
+    {
+      id: 1,
+      year: 2016,
+      userGain: 80000,
+      userLost: 823,
+    },
+    {
+      id: 2,
+      year: 2017,
+      userGain: 45677,
+      userLost: 345,
+    },
+    {
+      id: 3,
+      year: 2018,
+      userGain: 78888,
+      userLost: 555,
+    },
+    {
+      id: 4,
+      year: 2019,
+      userGain: 60000,
+      userLost: 4555,
+    },
+    {
+      id: 5,
+      year: 2020,
+      userGain: 70430,
+      userLost: 234,
+    },
+    {
+        id: 6,
+        year: 2021,
+        userGain: 29210,
+        userLost: 234,
+      },
+      {
+        id: 7,
+        year: 2022,
+        userGain: 4300,
+        userLost: 234,
+      },
+      {
+        id: 8,
+        year: 2023,
+        userGain: 4430,
+        userLost: 234,
+      },
+      {
+        id: 9,
+        year: 2024,
+        userGain: 90340,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 30200,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 45900,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 42000,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 42000,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 42000,
+        userLost: 234,
+      },
+
+      {
+        id: 5,
+        year: 2020,
+        userGain: 60200,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 42000,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 62000,
+        userLost: 234,
+      },
+      {
+        id: 5,
+        year: 2020,
+        userGain: 70200,
+        userLost: 234,
+      },
+  ];

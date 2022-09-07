@@ -2,11 +2,13 @@ import React from "react";
 
 const CallToAction = ({ dark }) => {
   return (
+    <>
     <div
       className={` ${
         dark === "true" ? "bg-gray-800 text-white" : "bg-gray-200 text-black"
       }`}
     >
+      
       <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8">
         <h2
           className={`text-3xl font-bold tracking-tight ${
@@ -41,7 +43,9 @@ const CallToAction = ({ dark }) => {
           </div>
         </div>
       </div>
+
     </div>
+    </>
   );
 };
 

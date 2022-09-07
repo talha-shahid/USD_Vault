@@ -7,6 +7,7 @@ import Swipe from "../components/Swipe";
 import ScrollToTop from "react-scroll-to-top";
 import ImageSlider from "../components/ImageSlider";
 import { SliderData } from "../components/SliderData";
+
 // import styles from '../styles/App.module.css'
 // import { useResizeDetector } from 'react-resize-detector';
 
@@ -18,6 +19,7 @@ export default function Home({ dark, filteredCoins}) {
       width: undefined,
       height: undefined,
     });
+
   
     useEffect(() => {
       // only execute all the code below in client side
@@ -48,7 +50,7 @@ export default function Home({ dark, filteredCoins}) {
 
   //setting the width props
   let w=3
-  console.log(size.width)
+  // console.log(size.width)
   if(size.width<=640){
     w=1
   }
@@ -88,11 +90,16 @@ export default function Home({ dark, filteredCoins}) {
       </div>
 
       <Table dark={dark} filteredCoins={filteredCoins} />
-      <CallToAction dark={dark} />
+      <div className={`${
+          dark === "true" ? "border-y border-white" : "border-y border-gray-500"
+        }`}>
+      <CallToAction dark={dark}/>
+      </div>
       <ScrollToTop
         smooth
         className="flex justify-center items-center hover:bg-gray-200 "
       />
+
     </div>
   );
 }
