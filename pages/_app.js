@@ -8,12 +8,11 @@ function MyApp({ Component, pageProps }) {
   const [dark, setDark] = useState('false')
 
   const darkMode =()=>{
-    console.log("clicked")
     if(dark==='true'){setDark('false')}
     else{setDark('true')}
   }
 
-  return <><Navbar dark={dark} darkMode={darkMode}/><Component  dark={dark}{...pageProps}/><Footer dark={dark}/></>
+  return <><Navbar dark={dark} darkMode={darkMode}/><Component dark={dark}{...pageProps}/><Footer dark={dark}/></>
 }
 
 export default MyApp

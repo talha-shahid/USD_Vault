@@ -3,17 +3,22 @@ import { useState } from "react";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { BsSearch } from "react-icons/bs";
 import Accordion from "./Accordion";
+import Search from './Search'
 
-const Navbar = (props, { w }) => {
-  // console.log(`In Navbar ${props.dark}`)
-  console.log(w);
+const Navbar = (props) => {
   const [dropDown, setDropDown] = useState(false);
   const [navres, setNavres] = useState(false);
+  const [search, setSearch] = useState(false)
 
   const displayNav = () => {
     setNavres(!navres);
   };
+
+  const displaySearch = () =>{
+    setSearch(!search)
+  }
 
   return (
     <>
@@ -50,14 +55,30 @@ const Navbar = (props, { w }) => {
     </button> */}
 
           {navres === false ? (
-            <span className="shadow shadow-gray-200 md:shadow-none border border-black md:border-0 rounded p-1">
-              <GiHamburgerMenu className={`md:hidden cursor-pointer `} onClick={displayNav} size={20} />
+            <span
+              className={` border border-black md:border-0 rounded p-1 ${
+                props.dark === "true"
+                  ? "bg-white md:bg-transparent"
+                  : "bg-gray-900 md:bg-transparent"
+              }`}
+            >
+              <GiHamburgerMenu
+                className={`md:hidden cursor-pointer ${
+                  props.dark === "true" ? "text-black" : "text-white"
+                } `}
+                onClick={displayNav}
+                size={20}
+              />
             </span>
           ) : (
             <AiFillCloseCircle
               onClick={displayNav}
               size={20}
-              className="drop-shadow cursor-pointer"
+              className={`drop-shadow cursor-pointer  ${
+                props.dark === "true"
+                  ? "text-white border border-white rounded-full"
+                  : "text-black border border-black rounded-full"
+              }`}
             />
           )}
 
@@ -67,19 +88,19 @@ const Navbar = (props, { w }) => {
             <ul
               className={`${
                 props.dark === "true" ? "bg-gray-900" : "bg-white"
-              } flex flex-col p-4 mt-4 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700`}
+              } flex flex-col p-4 mt-4 rounded-lg border border-gray-100 md:flex-row md:space-x-5 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700`}
             >
               {props.dark === "true" && (
                 <li>
                   <BsFillSunFill
                     size={"20px"}
-                    className="text-white cursor-pointer "
+                    className="text-white cursor-pointer hover:text-blue-600"
                     onClick={props.darkMode}
                   />
                 </li>
               )}
               {props.dark === "false" && (
-                <li>
+                <li className="hover:text-blue-600">
                   <BsFillMoonFill
                     size={"20px"}
                     className="cursor-pointer "
@@ -106,21 +127,40 @@ const Navbar = (props, { w }) => {
                   >
                     CryptoCurrencies
                   </a>
+
                   {dropDown && (
-                    <div className=" absolute top-14 right-30 bg-gray-100  rounded-md p-5 w-1/4">
+                    <div className=" absolute top-14 right-30 bg-gray-100  rounded-md p-5 w-1/4 z-50">
                       <div className=" bg-gray-100 transform w-9 h-6 absolute -mt-1 top-0 rounded-sm  right-64 rotate-45 "></div>
                       <ul>
                         <Link href={"/myaccount"}>
                           <a>
-                          <li className='text-base flex pb-2 pt-1'><img src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg" className='pr-1 h-8'/> Ranking</li>
+                            <li className="text-base flex pb-2 pt-1">
+                              <img
+                                src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg"
+                                className="pr-1 h-8"
+                              />{" "}
+                              Ranking
+                            </li>
                           </a>
                         </Link>
                         <Link href={"/orders"}>
                           <a>
-                          <li className='text-base flex pb-2'><img src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuRecentlyAddedIcon.svg" className='pr-1 h-8'/>Recently Added</li>
+                            <li className="text-base flex pb-2">
+                              <img
+                                src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuRecentlyAddedIcon.svg"
+                                className="pr-1 h-8"
+                              />
+                              Recently Added
+                            </li>
                           </a>
                         </Link>
-                        <li className='text-base flex pb-2 '><img src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCategoriesIcon.svg" className='pr-1 h-8'/>Categories</li>
+                        <li className="text-base flex pb-2 ">
+                          <img
+                            src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCategoriesIcon.svg"
+                            className="pr-1 h-8"
+                          />
+                          Categories
+                        </li>
                       </ul>
                     </div>
                   )}
@@ -174,7 +214,23 @@ const Navbar = (props, { w }) => {
                   Learn
                 </a>
               </li>
+
+
+              <li onClick={displaySearch} className={` ${
+                props.dark === "true"
+                  ? "text-white"
+                  : "text-black"
+              } ${search==true?'bg-gray-300 text-black':'bg-transparent'} hover:cursor-pointer hover:bg-gray-300 hover:text-blue-600 rounded-full p-3 -mt-2`}>
+                <BsSearch/>
+              </li>
+
+              
             </ul>
+
+            {search &&    
+                <Search dark={props.dark}/>
+            }  
+
           </div>
         </div>
       </nav>
@@ -184,7 +240,7 @@ const Navbar = (props, { w }) => {
           props.dark === "true" ? "bg-gray-900 text-white" : "bg-white"
         } ${navres === true ? "block" : "hidden"}`}
       >
-        <Accordion dark={props.dark}/>
+        <Accordion dark={props.dark} />
       </div>
     </>
   );
