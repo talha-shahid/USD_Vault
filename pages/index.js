@@ -5,7 +5,6 @@ import Table from "../components/Table";
 import CallToAction from "../components/CallToAction";
 import Swipe from "../components/Swipe";
 import ScrollToTop from "react-scroll-to-top";
-
 // import styles from '../styles/App.module.css'
 // import { useResizeDetector } from 'react-resize-detector';
 
