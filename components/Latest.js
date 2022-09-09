@@ -1,9 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const Latest = (props) => {
-  return (
-    <div >
-        <div className={` border-b  w-full flex flex-row py-2 text-xs overflow-auto ${
+    const [animation, setAnimation] = useState('running')
+  return (<>
+    <style jsx>{`
+        @keyframes example {
+            0%   {transform: translate(-50%);}
+
+            100% {transform: translate(100%);}
+          }
+          
+          .idk{
+            animation-name: example;
+            animation-duration: 15s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-play-state: ${animation};
+          }
+      `}</style>
+    <div         onMouseEnter={() => setAnimation('paused')}
+        onMouseLeave={() => setAnimation('running')} className={`border-b overflow-x-hidden ${
+          props.dark === "true" ? " border-gray-700" : ""
+        }`}>
+        <div className={`idk   w-full flex flex-row py-2 text-xs ${
           props.dark === "true" ? "bg-gray-900 border-gray-700" : "bg-white "
         }`}>
             <div className='flex'>
@@ -33,6 +52,7 @@ const Latest = (props) => {
 
         </div>
     </div>
+    </>
   )
 }
 
