@@ -139,6 +139,7 @@ const Navbar = (props) => {
                               <img
                                 src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg"
                                 className="pr-1 h-8"
+                                alt="img"
                               />{" "}
                               Ranking
                             </li>
