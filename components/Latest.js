@@ -20,7 +20,7 @@ const Latest = (props) => {
       `}</style>
     <div         onMouseEnter={() => setAnimation('paused')}
         onMouseLeave={() => setAnimation('running')} className={`border-b overflow-x-hidden ${
-          props.dark === "true" ? " border-gray-700" : ""
+          props.dark === "true" ? " border-gray-700 bg-gray-900" : "bg-white"
         }`}>
         <div className={`idk   w-full flex flex-row py-2 text-xs ${
           props.dark === "true" ? "bg-gray-900 border-gray-700" : "bg-white "

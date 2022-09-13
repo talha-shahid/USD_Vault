@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Latest from "../components/Latest"
 import { useState } from 'react'
+import { AppProvider } from '../components/Context';
 
 function MyApp({ Component, pageProps }) {
 
@@ -13,7 +14,7 @@ function MyApp({ Component, pageProps }) {
     else{setDark('true')}
   }
 
-  return <><Latest dark={dark}/><Navbar dark={dark} darkMode={darkMode}/><Component dark={dark}{...pageProps}/><Footer dark={dark}/></>
+  return <><Latest dark={dark}/><Navbar dark={dark} darkMode={darkMode}/><AppProvider><Component dark={dark}{...pageProps}/></AppProvider><Footer dark={dark}/></>
 }
 
 export default MyApp

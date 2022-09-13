@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import LineChart from "./LineChart";
 import { UserData } from "./Data";
+import ReactPaginate from "react-paginate";
+import styles from "../styles/Table.module.css";
+import { GrFormPrevious } from "react-icons/gr";
 
 function Table({ dark, filteredCoins }) {
+  // console.log(filteredCoins);
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
     datasets: [
@@ -11,6 +15,16 @@ function Table({ dark, filteredCoins }) {
       },
     ],
   });
+
+  const [users, setUsers] = useState(filteredCoins.slice(0, 100));
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+  const pagesVisited = pageNumber * usersPerPage;
+  const pageCount = Math.ceil(users.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <>
@@ -59,66 +73,88 @@ function Table({ dark, filteredCoins }) {
             </tr>
           </thead>
           <tbody>
-            {filteredCoins.map((coin) => (
-              <tr
-                key={coin.id}
-                className={`border-b  dark:border-gray-300 ${
-                  dark === "true"
-                    ? " text-white bg-gray-800 hover:bg-gray-900"
-                    : " text-black bg-gray-100 hover:bg-gray-200"
-                }`}
-              >
-                <th
-                  className={`py-4 px-6 ${
+            {filteredCoins
+              .slice(pagesVisited, pagesVisited + usersPerPage)
+              .map((coin) => (
+                <tr
+                  key={coin.id}
+                  className={`border-b  dark:border-gray-300 ${
                     dark === "true"
-                      ? "text-white bg-gray-800"
-                      : "text-black bg-gray-100"
+                      ? " text-white bg-gray-800 hover:bg-gray-900"
+                      : " text-black bg-gray-100 hover:bg-gray-200"
                   }`}
                 >
-                  {coin.market_cap_rank}
-                </th>
-                <th
-                  scope="row"
-                  className={`py-4 px-6 font-medium  whitespace-nowrap  ${
-                    dark === "true"
-                      ? "text-white bg-gray-800"
-                      : "text-gray-900 bg-gray-100"
-                  }`}
-                >
-                  <div className="flex">
-                    <img width={22} src={coin.image} />
-                    <span className="ml-2">
-                      <b>{coin.name}</b>
-                    </span>
-                    <span className="text-gray-500 ml-1">
+                  <th
+                    className={`py-4 px-6 ${
+                      dark === "true"
+                        ? "text-white bg-gray-800"
+                        : "text-black bg-gray-100"
+                    }`}
+                  >
+                    {coin.market_cap_rank}
+                  </th>
+                  <th
+                    scope="row"
+                    className={`py-4 px-6 font-medium  whitespace-nowrap  ${
+                      dark === "true"
+                        ? "text-white bg-gray-800"
+                        : "text-gray-900 bg-gray-100"
+                    }`}
+                  >
+                    <div className="flex">
+                      <img width={22} src={coin.image} />
+                      <span className="ml-2">
+                        <b>{coin.name}</b>
+                      </span>
+                      <span className="text-gray-500 ml-1">
+                        {coin.symbol.toUpperCase()}
+                      </span>
+                    </div>
+                  </th>
+                  <td className="py-4 px-6">
+                    <b>${coin.current_price.toLocaleString()}</b>
+                  </td>
+                  <td className="py-4 px-6">
+                    ${coin.market_cap.toLocaleString()}
+                  </td>
+                  <td className="py-4 px-6">
+                    ${coin.total_volume.toLocaleString()}
+                  </td>
+                  <td className="py-4 px-6 text-center">
+                    {coin.circulating_supply.toLocaleString()}{" "}
+                    <span className="font-medium">
                       {coin.symbol.toUpperCase()}
                     </span>
-                  </div>
-                </th>
-                <td className="py-4 px-6">
-                  <b>${coin.current_price.toLocaleString()}</b>
-                </td>
-                <td className="py-4 px-6">
-                  ${coin.market_cap.toLocaleString()}
-                </td>
-                <td className="py-4 px-6">
-                  ${coin.total_volume.toLocaleString()}
-                </td>
-                <td className="py-4 px-6 text-center">
-                  {coin.circulating_supply.toLocaleString()}{" "}
-                  <span className="font-medium">
-                    {coin.symbol.toUpperCase()}
-                  </span>
-                </td>
-                <td className="py-4 px-6">
-                  {" "}
-                  <LineChart chartData={userData} />
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="py-4 px-6">
+                    {" "}
+                    <LineChart chartData={userData} />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
+
+
+      <div
+        className={`pt-5 flex items-center justify-center overflow-x-hidden  ${
+          dark === "true" ? "bg-gray-800" : "bg-gray-100"
+        }`}
+      >
+        <ReactPaginate 
+          previousLabel={"Prev"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={styles.paginationBttns}
+          previousLinkClassName={styles.previousBttn}
+          nextLinkClassName={styles.nextBttn}
+          disabledClassName={styles.paginationDisabled}
+          activeClassName={styles.paginationActive}
+        />
+      </div>
+
     </>
   );
 }
