@@ -6,9 +6,6 @@ import CallToAction from "../components/CallToAction";
 import Swipe from "../components/Swipe";
 import ScrollToTop from "react-scroll-to-top";
 
-// import styles from '../styles/App.module.css'
-// import { useResizeDetector } from 'react-resize-detector';
-
 export default function Home({ dark, filteredCoins }) {
   function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match

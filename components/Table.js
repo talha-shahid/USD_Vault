@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import LineChart from "./LineChart";
-import { UserData } from "./Data";
 import ReactPaginate from "react-paginate";
 import styles from "../styles/Table.module.css";
-import { GrFormPrevious } from "react-icons/gr";
-
+import Link from 'next/link'
 function Table({ dark, filteredCoins }) {
-  // console.log(filteredCoins);
-  const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.year),
-    datasets: [
-      {
-        data: UserData.map((data) => data.userGain),
-      },
-    ],
-  });
+
+  const graphImage ='https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/52.svg'
+
 
   const [users, setUsers] = useState(filteredCoins.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
@@ -29,6 +20,13 @@ function Table({ dark, filteredCoins }) {
   return (
     <>
       <style jsx>{`
+
+        table thead #table-head-name{
+          position: sticky;
+          left: 0;
+          background: ${dark === "true" ? "#6b7280" : "#e2e8f0"}
+        }
+
         table tbody th {
           position: sticky;
           left: 0;
@@ -41,7 +39,7 @@ function Table({ dark, filteredCoins }) {
       `}</style>
       <div className="overflow-x-auto relative">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead
+          <thead 
             className={`text-xs uppercase border-b border-t border-gray-300  ${
               dark === "true"
                 ? "bg-gray-500 text-white border-y border-white"
@@ -52,7 +50,7 @@ function Table({ dark, filteredCoins }) {
               <th scope="col" className="py-3 px-6">
                 #
               </th>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 px-6" id="table-head-name">
                 Name
               </th>
               <th scope="col" className="py-3 px-6">
@@ -72,6 +70,7 @@ function Table({ dark, filteredCoins }) {
               </th>
             </tr>
           </thead>
+
           <tbody>
             {filteredCoins
               .slice(pagesVisited, pagesVisited + usersPerPage)
@@ -103,8 +102,8 @@ function Table({ dark, filteredCoins }) {
                   >
                     <div className="flex">
                       <img width={22} src={coin.image} />
-                      <span className="ml-2">
-                        <b>{coin.name}</b>
+                      <span className="ml-2 hover:text-blue-600 hover:underline">
+                        <b><Link href={`/currencies/${coin.name.toLowerCase()}`}>{coin.name}</Link></b>
                       </span>
                       <span className="text-gray-500 ml-1">
                         {coin.symbol.toUpperCase()}
@@ -128,7 +127,7 @@ function Table({ dark, filteredCoins }) {
                   </td>
                   <td className="py-4 px-6">
                     {" "}
-                    <LineChart chartData={userData} />
+                    <img src={graphImage}></img>
                   </td>
                 </tr>
               ))}
