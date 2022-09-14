@@ -1,26 +1,12 @@
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import { GiConsoleController } from "react-icons/gi";
+import { AiOutlineLink } from "react-icons/ai";
+import { BiLinkExternal } from "react-icons/bi";
 
-function Coins({ dark }) {
-  const router = useRouter();
-  // Fetch API Data
-  const fetchApiData = async () => {
-    try {
-      const res = await fetch(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false"
-      );
-      const data = await res.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+// import { useRouter } from "next/router";
 
-  useEffect(() => {
-    fetchApiData();
-  }, []);
+const Coins = ({ dark, coin }) => {
+  // console.log({ coin });
 
-  // console.log(coiins)
   const capitalize = (str) => {
     if (typeof str === "string") {
       return str.replace(/^\w/, (c) => c.toUpperCase());
@@ -29,8 +15,6 @@ function Coins({ dark }) {
     }
   };
 
-  // console.log(router.query.coins);
-  // console.log(data)
   return (
     <>
       <div
@@ -91,23 +75,97 @@ function Coins({ dark }) {
                     dark === "true" ? "text-white" : "text-gray-700"
                   }`}
                 >
-                  {capitalize(router.query.coins)}
+                  {/* {capitalize(router.query.coins)} */}
+                  {coin.name}
                 </span>
               </div>
             </li>
           </ol>
         </nav>
+        {/* div 1 */}
+        <div className="flex justify-between">
+          <div className="flex items-center justify-start">
+            {/* name and image */}
+            <div
+              className={`flex mt-6 ${
+                dark === "true" ? "text-white" : "text-gray-900"
+              }`}
+            >
+              <span>
+                <img src={coin.image.small} alt="" />
+              </span>
+              <span className="text-2xl md:text-4xl font-semibold  flex items-center justify-center ml-2">
+                {coin.name}
+              </span>
+            </div>
 
-        <div
-          className={`text-4xl font-semibold ${
-            dark === "true" ? "text-white" : "text-gray-600"
-          }`}
-        >
-          {capitalize(router.query.coins)}
+            {/* button */}
+            <div className="mt-7 ml-2">
+              <span className=" bg-gray-300 text-gray-800 text-xs font-bold mr-2 px-2.5 py-1.5 rounded">
+                {coin.symbol.toUpperCase()}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex pb-3">
+            <div className="flex items-end mb-1 font-semibold text-2xl md:text-4xl">
+              ${coin.market_data.current_price.usd.toLocaleString()}
+            </div>
+
+            <div className="bg-red-600 mt-12 text-white font-semibold flex items-center p-1 ml-2 rounded-md">
+              {coin.market_data.price_change_percentage_24h.toFixed(2)}%
+            </div>
+          </div>
+        </div>
+        {/* div 2 */}
+
+        <div className="flex justify-between">
+          <div className="flex">
+            <div className="bg-gray-400 mr-2 rounded-md flex items-center justify-center p-1">
+              Rank #{coin.market_cap_rank}
+            </div>
+            <div className="bg-gray-300 hover:bg-gray-400 hover:underline rounded-md">
+              <a
+                href={coin.links.homepage[0]}
+                className="flex p-1"
+                target="_blank"
+              >
+                <span className="flex items-center">
+                  <AiOutlineLink />
+                </span>
+                <span>Website</span>
+                <span className="flex items-center">
+                  <BiLinkExternal />
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div className="w-1/6 ">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+            <div
+              className="bg-blue-600 h-2.5 rounded-full"
+              style={{ width: '45%' }}
+            ></div>
+          </div>
+
+
+        </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Coins;
+
+export async function getServerSideProps(context) {
+  const id = context.query.coins;
+  const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`);
+  const data = await res.json();
+  return {
+    props: {
+      coin: data,
+    }, // will be passed to the page component as props
+  };
+}
