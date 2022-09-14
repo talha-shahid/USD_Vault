@@ -128,7 +128,6 @@ const Coins = ({ dark, coin }) => {
               <a
                 href={coin.links.homepage[0]}
                 className="flex p-1"
-                target="_blank"
               >
                 <span className="flex items-center">
                   <AiOutlineLink />
