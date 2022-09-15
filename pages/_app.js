@@ -5,7 +5,7 @@ import Latest from "../components/Latest"
 import { useState } from 'react'
 
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps}) {
 
   const [dark, setDark] = useState('false')
 

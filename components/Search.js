@@ -1,7 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 
 const Search = (props) => {
+
+  const reff = useRef();
+  const [hide, setHide] = useState('hidden')
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const [users, setUsers] = useState([])
+
+  // console.log(searchTerm)
+
+  const fetchData = () => {
+    fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setUsers(data)
+      })
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+  const gettingValue =(e)=>{
+    setSearchTerm(reff.current.value)
+    if(reff.current.value != ""){
+      setHide('block')
+    }
+    else{
+      setHide('hidden')
+    }
+  }
+
   return (
     <>
     <form>
@@ -29,7 +63,7 @@ const Search = (props) => {
           ></path>
         </svg>
       </div>
-      <input
+      <input ref={reff} onChange={gettingValue}
         type="search"
         id="default-search"
         className={`${props.dark === "true"? 'bg-gray-700 text-white placeholder-gray-300':'bg-gray-200 text-black placeholder-gray-600'} block py-1.5 pl-10 w-full text-sm rounded-lg border border-gray-500 outline-offset-1 "
@@ -45,7 +79,29 @@ const Search = (props) => {
     </div>
   </form>
 
-    {/* <SearchedItems/> */}
+  <div className={`${hide} absolute top-30 mt-1 drop-shadow bg-gray-300 w-96 px-10 py-3 rounded-md`}>
+  {users.filter((val)=>{
+    if(searchTerm == ""){
+      return val
+    }
+    else if(val.name.toLowerCase().includes(searchTerm.toLowerCase())){
+      return val
+    }
+
+    }).map((val, key)=>{
+      return(
+        <div>{val.name}</div>
+      )
+    })}
+          {/* {users.length > 0 && (
+        <ul>
+          {users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      )} */}
+  </div>
+
   </>
   )
 }
