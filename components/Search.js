@@ -90,16 +90,10 @@ const Search = (props) => {
 
     }).map((val, key)=>{
       return(
-        <div>{val.name}</div>
+        <div key={val.id}>{val.name}</div>
       )
     })}
-          {/* {users.length > 0 && (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>{user.name}</li>
-          ))}
-        </ul>
-      )} */}
+
   </div>
 
   </>
