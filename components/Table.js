@@ -103,7 +103,7 @@ function Table({ dark, filteredCoins }) {
                     <div className="flex">
                       <img width={22} src={coin.image} />
                       <span className="ml-2 hover:text-blue-600 hover:underline">
-                        <b><Link href={`/currencies/${coin.name.toLowerCase()}`}>{coin.name}</Link></b>
+                        <b><Link href={`/currencies/${coin.id}`}>{coin.name}</Link></b>
                       </span>
                       <span className="text-gray-500 ml-1">
                         {coin.symbol.toUpperCase()}

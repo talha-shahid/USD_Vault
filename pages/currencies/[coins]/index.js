@@ -92,7 +92,7 @@ const Coins = ({ dark, coin }) => {
               }`}
             >
               <span>
-                <img src={coin.image.small} alt="" />
+                  <img src={coin.image.small} alt="" />
               </span>
               <span className="text-2xl md:text-4xl font-semibold  flex items-center justify-center ml-2">
                 {coin.name}
@@ -157,9 +157,9 @@ const Coins = ({ dark, coin }) => {
 
           <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
             Fully Diluted Market Cap
-            <div className="font-semibold">
-              {coin.market_data.fully_diluted_valuation.usd.toLocaleString()}
-            </div>
+            {coin.market_data.fully_diluted_valuation==undefined && <div className="font-semibold">
+            {coin.market_data.fully_diluted_valuation.usd.toLocaleString()}
+            </div>}
           </div>
 
           <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
@@ -168,20 +168,31 @@ const Coins = ({ dark, coin }) => {
               {coin.market_data.total_volume.usd.toLocaleString()}
             </div>
             <div className="mt-6">
-            Volume/MarketCap
-            <div className="font-semibold">
-              {(coin.market_data.total_volume.usd/coin.market_data.market_cap.usd).toFixed(4)}
-            </div>
+              Volume/MarketCap
+              <div className="font-semibold">
+                {(
+                  coin.market_data.total_volume.usd /
+                  coin.market_data.market_cap.usd
+                ).toFixed(4)}
+              </div>
             </div>
           </div>
 
           <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
-            
-            <div className="mt-3 font-semibold flex justify-between"><span>Circulating Supply:</span>$
+            <div className="mt-3 font-semibold flex justify-between">
+              <span>Circulating Supply:</span>$
               {coin.market_data.circulating_supply.toLocaleString()}
             </div>
-            <div className="mt-3 font-semibold flex justify-between"><span>Max Supply:</span>${coin.market_data.max_supply.toLocaleString()}</div>
-            <div className="mt-3 font-semibold flex justify-between"><span>Total Supply:</span>${coin.market_data.total_supply.toLocaleString()}</div>
+            {coin.market_data.max_supply!=null &&
+            <div className="mt-3 font-semibold flex justify-between">
+              <span>Max Supply:</span>$
+              {coin.market_data.max_supply.toLocaleString()}
+            </div>
+            }
+            <div className="mt-3 font-semibold flex justify-between">
+              <span>Total Supply:</span>$
+              {coin.market_data.total_supply.toLocaleString()}
+            </div>
           </div>
         </div>
       </div>
