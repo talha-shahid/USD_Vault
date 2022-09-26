@@ -1,4 +1,4 @@
-/*eslint-disable @next/next/no-img-element*/ 
+/*eslint-disable @next/next/no-img-element*/
 import Link from "next/link";
 import { useState } from "react";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
@@ -6,20 +6,24 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import Accordion from "./Accordion";
-import Search from './Search'
+import Search from "./Search";
 
 const Navbar = (props) => {
   const [dropDown, setDropDown] = useState(false);
   const [navres, setNavres] = useState(false);
-  const [search, setSearch] = useState(false)
+  const [search, setSearch] = useState(false);
+  // modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
 
   const displayNav = () => {
     setNavres(!navres);
   };
 
-  const displaySearch = () =>{
-    setSearch(!search)
-  }
+  const displaySearch = () => {
+    setSearch(!search);
+  };
 
   return (
     <>
@@ -130,8 +134,8 @@ const Navbar = (props) => {
                   </a>
 
                   {dropDown && (
-                    <div className=" absolute top-14 right-30 bg-gray-100  rounded-md p-5 w-1/4 z-50">
-                      <div className=" bg-gray-100 transform w-9 h-6 absolute -mt-1 top-0 rounded-sm  right-64 rotate-45 "></div>
+                    <div className=" absolute top-13 right-30 bg-gray-100  rounded-md p-5 w-1/4 z-50">
+                      {/* <div className=" bg-gray-100 transform w-9 h-6 relative -mt-1 -top-5 rounded-sm rotate-45 "></div> */}
                       <ul>
                         <Link href={"/myaccount"}>
                           <a>
@@ -217,22 +221,19 @@ const Navbar = (props) => {
                 </a>
               </li>
 
-
-              <li onClick={displaySearch} className={` ${
-                props.dark === "true"
-                  ? "text-white"
-                  : "text-black"
-              } ${search==true?'bg-gray-300 text-black':'bg-transparent'} hover:cursor-pointer hover:bg-gray-300 hover:text-blue-600 rounded-full p-3 -mt-2`}>
-                <BsSearch/>
+              <li
+                onClick={displaySearch}
+                className={` ${
+                  props.dark === "true" ? "text-white" : "text-black"
+                } ${
+                  search == true ? "bg-gray-300 text-black" : "bg-transparent"
+                } hover:cursor-pointer hover:bg-gray-300 hover:text-blue-600 rounded-full p-3 -mt-2`}
+              >
+                <BsSearch />
               </li>
-
-              
             </ul>
 
-            {search &&    
-                <Search dark={props.dark}/>
-            }  
-
+            {search && <Search dark={props.dark} />}
           </div>
         </div>
       </nav>
@@ -242,6 +243,39 @@ const Navbar = (props) => {
           props.dark === "true" ? "bg-gray-900 text-white" : "bg-white"
         } ${navres === true ? "block" : "hidden"}`}
       >
+
+        <div className="md:hidden block">
+
+        <div className="flex">
+        <div className=" w-12 flex items-center justify-center p-5 rounded-full">
+          {props.dark === "true" && (
+            <li className="list-none bg-gray-400 p-2 rounded-full">
+              <BsFillSunFill
+                size={"20px"}
+                className="text-white cursor-pointer hover:text-blue-600"
+                onClick={props.darkMode}
+              />
+            </li>
+          )}
+
+          {props.dark === "false" && (
+            <li className="hover:text-blue-600 list-none bg-gray-400 p-2 rounded-full">
+              <BsFillMoonFill
+                size={"20px"}
+                className="cursor-pointer "
+                onClick={props.darkMode}
+              />
+            </li>
+          )}
+        </div>
+
+        <div className="flex items-center">
+          <Search dark={props.dark}/>
+        </div>
+        </div>
+
+        </div>
+
         <Accordion dark={props.dark} />
       </div>
     </>

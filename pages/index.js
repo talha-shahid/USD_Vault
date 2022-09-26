@@ -5,8 +5,27 @@ import Table from "../components/Table";
 import CallToAction from "../components/CallToAction";
 import Swipe from "../components/Swipe";
 import ScrollToTop from "react-scroll-to-top";
+import {useQuery} from 'react-query'
+import axios from 'axios'
+
+const fetchCrypto = ()=>{
+  return axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
+}
 
 export default function Home({ dark, filteredCoins }) {
+
+
+  const { isLoading, data} = useQuery(
+    'crypto',fetchCrypto,
+    {
+      refetchInterval: 300000,
+    }
+  );
+
+   
+
+
+
   function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
@@ -49,6 +68,8 @@ export default function Home({ dark, filteredCoins }) {
     w = 1;
   }
 
+
+
   return (
     <div>
       <Head>
@@ -58,6 +79,9 @@ export default function Home({ dark, filteredCoins }) {
       </Head>
       {/* <SearchT/>
       <Stories/> */}
+
+      {/* modal */}
+
 
       <div
         className={`${
@@ -82,7 +106,7 @@ export default function Home({ dark, filteredCoins }) {
         </div>
       </div>
 
-      <Table dark={dark} filteredCoins={filteredCoins} />
+      <Table dark={dark} data={data} filteredCoins={filteredCoins} />
       <div
         className={`${
           dark === "true" ? "border-y border-white" : "border-y border-gray-500"

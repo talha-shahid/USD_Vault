@@ -62,7 +62,7 @@ const Search = (props) => {
               ></path>
             </svg>
           </div>
-          <input
+          <input autoComplete="off"
             ref={reff}
             onChange={gettingValue}
             type="search"
@@ -86,7 +86,7 @@ const Search = (props) => {
       </form>
 
       <div
-        className={`${hide} absolute top-30 mt-1 drop-shadow bg-gray-300 w-96 px-10 py-3 rounded-md`}
+        className={`${hide} absolute md:top-28 top-36  drop-shadow bg-gray-300 md:w-96 w-56 px-10 py-3 rounded-md`}
       >
         {users
           .filter((val) => {
@@ -101,10 +101,10 @@ const Search = (props) => {
           .map((val, key) => {
             return (
               <div key={val.id}>
-                <span className="hover:text-blue-600">
+                <span className="hover:text-blue-600 ">
                   <Link href={`/currencies/${val.id}`}>
                     <a>
-                      <div className="flex">
+                      <div className="flex ">
                         <img className="mr-2 mb-2" width="25" src={val.image} />
                         {val.name}
                       </div>

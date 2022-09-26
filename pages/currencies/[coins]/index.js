@@ -148,21 +148,21 @@ const Coins = ({ dark, coin }) => {
         </div>
 
         <div className="md:flex mt-3 md:h-40">
-          <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
+          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}>
             Market Cap{" "}
             <div className="font-semibold">
               {coin.market_data.market_cap.usd.toLocaleString()}
             </div>
           </div>
 
-          <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
+          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}>
             Fully Diluted Market Cap
             {coin.market_data.fully_diluted_valuation==undefined && <div className="font-semibold">
             {coin.market_data.fully_diluted_valuation.usd.toLocaleString()}
             </div>}
           </div>
 
-          <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
+          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}>
             Volume
             <div className="font-semibold">
               {coin.market_data.total_volume.usd.toLocaleString()}
@@ -178,7 +178,7 @@ const Coins = ({ dark, coin }) => {
             </div>
           </div>
 
-          <div className="md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 bg-gray-200 p-4 text-sm border border-gray-800">
+          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2  p-4 text-sm border border-gray-800`}>
             <div className="mt-3 font-semibold flex justify-between">
               <span>Circulating Supply:</span>$
               {coin.market_data.circulating_supply.toLocaleString()}

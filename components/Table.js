@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "../styles/Table.module.css";
 import Link from 'next/link'
-function Table({ dark, filteredCoins }) {
+import axios from 'axios'
+import { useQuery } from "react-query";
+
+function Table({ dark, filteredCoins, data}) {
+
 
   const graphImage ='https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/52.svg'
 
 
   const [users, setUsers] = useState(filteredCoins.slice(0, 100));
+  // const [users, setUsers] = useState(filteredCoins);
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 10;
   const pagesVisited = pageNumber * usersPerPage;
@@ -72,7 +77,7 @@ function Table({ dark, filteredCoins }) {
           </thead>
 
           <tbody>
-            {filteredCoins
+            {data?.data
               .slice(pagesVisited, pagesVisited + usersPerPage)
               .map((coin) => (
                 <tr
