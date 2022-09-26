@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import OutsideClickHandler from 'react-outside-click-handler';
 
 const Search = (props) => {
   const reff = useRef();
@@ -62,7 +63,8 @@ const Search = (props) => {
               ></path>
             </svg>
           </div>
-          <input autoComplete="off"
+          <input
+            autoComplete="off"
             ref={reff}
             onChange={gettingValue}
             type="search"
@@ -84,37 +86,47 @@ const Search = (props) => {
           </button>
         </div>
       </form>
-
-      <div
-        className={`${hide} absolute md:top-28 top-36  drop-shadow bg-gray-300 md:w-96 w-56 px-10 py-3 rounded-md`}
+      <OutsideClickHandler
+        onOutsideClick={() => {
+          // alert("You clicked outside of this component!!!");
+          setHide("hidden")
+        }}
       >
-        {users
-          .filter((val) => {
-            if (searchTerm == "") {
-              return val;
-            } else if (
-              val.name.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return val;
-            }
-          })
-          .map((val, key) => {
-            return (
-              <div key={val.id}>
-                <span className="hover:text-blue-600 ">
-                  <Link href={`/currencies/${val.id}`}>
-                    <a>
-                      <div className="flex ">
-                        <img className="mr-2 mb-2" width="25" src={val.image} />
-                        {val.name}
-                      </div>
-                    </a>
-                  </Link>
-                </span>
-              </div>
-            );
-          })}
-      </div>
+        <div
+          className={`${hide} absolute md:top-28 top-36  drop-shadow bg-gray-300 md:w-96 w-56 px-10 py-3 rounded-md`}
+        >
+          {users
+            .filter((val) => {
+              if (searchTerm == "") {
+                return val;
+              } else if (
+                val.name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            })
+            .map((val, key) => {
+              return (
+                <div key={val.id}>
+                  <span className="hover:text-blue-600 ">
+                    <Link href={`/currencies/${val.id}`}>
+                      <a>
+                        <div className="flex ">
+                          <img
+                            className="mr-2 mb-2"
+                            width="25"
+                            src={val.image}
+                          />
+                          {val.name}
+                        </div>
+                      </a>
+                    </Link>
+                  </span>
+                </div>
+              );
+            })}
+        </div>
+      </OutsideClickHandler>
     </>
   );
 };

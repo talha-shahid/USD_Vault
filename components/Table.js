@@ -62,6 +62,9 @@ function Table({ dark, filteredCoins, data}) {
                 Price
               </th>
               <th scope="col" className="py-3 px-6">
+                24h
+              </th>
+              <th scope="col" className="py-3 px-6">
                 Market Cap
               </th>
               <th scope="col" className="py-3 px-6">
@@ -118,6 +121,12 @@ function Table({ dark, filteredCoins, data}) {
                   <td className="py-4 px-6">
                     <b>${coin.current_price.toLocaleString()}</b>
                   </td>
+                  {coin.price_change_percentage_24h.toFixed(2)>0 && <td className="text-green-600 font-semibold py-4 px-6">
+                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  </td>}
+                  {coin.price_change_percentage_24h.toFixed(2)<0 && <td className="text-red-600 font-semibold py-4 px-6">
+                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  </td>}
                   <td className="py-4 px-6">
                     ${coin.market_cap.toLocaleString()}
                   </td>

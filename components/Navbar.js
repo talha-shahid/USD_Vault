@@ -8,6 +8,7 @@ import { BsSearch } from "react-icons/bs";
 import Accordion from "./Accordion";
 import Search from "./Search";
 
+
 const Navbar = (props) => {
   const [dropDown, setDropDown] = useState(false);
   const [navres, setNavres] = useState(false);
