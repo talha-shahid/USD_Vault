@@ -4,10 +4,10 @@ import OutsideClickHandler from 'react-outside-click-handler';
 
 const Search = (props) => {
   const reff = useRef();
+  const refr = useRef();
   const [hide, setHide] = useState("hidden");
   const [searchTerm, setSearchTerm] = useState("");
-
-  const [users, setUsers] = useState([]);
+  const [currencies, setCurrencies] = useState([]);
 
   // console.log(searchTerm)
 
@@ -19,7 +19,7 @@ const Search = (props) => {
         return response.json();
       })
       .then((data) => {
-        setUsers(data);
+        setCurrencies(data);
       });
   };
 
@@ -35,6 +35,8 @@ const Search = (props) => {
       setHide("hidden");
     }
   };
+  
+  // console.log(nothing)
 
   return (
     <>
@@ -92,10 +94,10 @@ const Search = (props) => {
           setHide("hidden")
         }}
       >
-        <div
+        <div 
           className={`${hide} absolute md:top-28 top-36  drop-shadow bg-gray-300 md:w-96 w-56 px-10 py-3 rounded-md`}
         >
-          {users
+          {currencies
             .filter((val) => {
               if (searchTerm == "") {
                 return val;
@@ -108,7 +110,7 @@ const Search = (props) => {
             .map((val, key) => {
               return (
                 <div key={val.id}>
-                  <span className="hover:text-blue-600 ">
+                  <span className="hover:text-blue-600 " ref={refr}>
                     <Link href={`/currencies/${val.id}`}>
                       <a>
                         <div className="flex ">
@@ -126,6 +128,7 @@ const Search = (props) => {
               );
             })}
         </div>
+
       </OutsideClickHandler>
     </>
   );

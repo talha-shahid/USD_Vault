@@ -105,7 +105,7 @@ const Latest = (props) => {
             props.dark === "true" ? "bg-gray-900" : "bg-white"
           } flex  z-50 absolute right-0`}
         >
-          <div className="mx-1 bg-blue-600 text-sm px-2 cursor-pointer my-1 flex justify-center items-center rounded text-white hover:bg-blue-500">
+          <div  className="mx-1 bg-blue-600 text-sm px-2 cursor-pointer my-1 flex justify-center items-center rounded text-white hover:bg-blue-500">
             Login
           </div>
           <div className="mx-1 bg-blue-600 text-sm px-2 cursor-pointer my-1 flex justify-center items-center rounded text-white hover:bg-blue-500 break">

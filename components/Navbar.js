@@ -8,18 +8,21 @@ import { BsSearch } from "react-icons/bs";
 import Accordion from "./Accordion";
 import Search from "./Search";
 
-
-const Navbar = (props) => {
+const Navbar = (props, {count}) => {
   const [dropDown, setDropDown] = useState(false);
   const [navres, setNavres] = useState(false);
   const [search, setSearch] = useState(false);
-  // modal
-  const [modalOpen, setModalOpen] = useState(false);
-  const close = () => setModalOpen(false);
-  const open = () => setModalOpen(true);
+  // const [count, setCount] = useGlobalState('count');
 
   const displayNav = () => {
     setNavres(!navres);
+    if(count==false){
+      setCount(true)
+    }
+    else if (count== true) {
+      setCount(false)
+    }
+
   };
 
   const displaySearch = () => {
@@ -29,7 +32,7 @@ const Navbar = (props) => {
   return (
     <>
       <nav
-        className={`relative z-50 border-gray-200 px-2 sm:px-4 py-2.5 drop-shadow-md  ${
+        className={`sticky md:relative top-0 z-50 border-gray-200 px-2 sm:px-4 py-2.5 drop-shadow-md  ${
           props.dark === "true" ? "bg-gray-900" : "bg-white"
         } `}
       >
@@ -61,21 +64,23 @@ const Navbar = (props) => {
     </button> */}
 
           {navres === false ? (
-            <span
-              className={` border border-black md:border-0 rounded p-1 ${
-                props.dark === "true"
-                  ? "bg-white md:bg-transparent"
-                  : "bg-gray-900 md:bg-transparent"
-              }`}
-            >
-              <GiHamburgerMenu
-                className={`md:hidden cursor-pointer ${
-                  props.dark === "true" ? "text-black" : "text-white"
-                } `}
-                onClick={displayNav}
-                size={20}
-              />
-            </span>
+
+              <span
+                className={` border border-black md:border-0 rounded p-1 ${
+                  props.dark === "true"
+                    ? "bg-white md:bg-transparent"
+                    : "bg-gray-900 md:bg-transparent"
+                }`}
+              >
+                <GiHamburgerMenu
+                  className={`md:hidden cursor-pointer ${
+                    props.dark === "true" ? "text-black" : "text-white"
+                  } `}
+                  onClick={displayNav}
+                  size={20}
+                />
+              </span>
+
           ) : (
             <AiFillCloseCircle
               onClick={displayNav}
@@ -234,15 +239,15 @@ const Navbar = (props) => {
               </li>
             </ul>
 
-            {search && <Search dark={props.dark} />}
+            {search && <Search dark={props.dark} searchF={displaySearch} />}
           </div>
         </div>
       </nav>
 
       <div
-        className={`h-screen ${
+        className={`h-screen w-full z-50 top-14 ${
           props.dark === "true" ? "bg-gray-900 text-white" : "bg-white"
-        } ${navres === true ? "block" : "hidden"}`}
+        } ${navres === true ? "fixed" : "hidden"}`}
       >
 
         <div className="md:hidden block">

@@ -2,10 +2,26 @@ import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "../styles/Table.module.css";
 import Link from 'next/link'
+import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai' 
 import axios from 'axios'
 import { useQuery } from "react-query";
 
-function Table({ dark, filteredCoins, data}) {
+
+const fetchCrypto = ()=>{
+  return axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
+}
+
+
+function Table({ dark, filteredCoins}) {
+
+  const { isLoading, data} = useQuery(
+    'crypto',fetchCrypto,
+    {
+      refetchInterval: 300000,
+    }
+  );
+
+
 
 
   const graphImage ='https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/52.svg'
@@ -61,13 +77,13 @@ function Table({ dark, filteredCoins, data}) {
               <th scope="col" className="py-3 px-6">
                 Price
               </th>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 px-6 text-center">
                 24h
               </th>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 px-6 text-center">
                 Market Cap
               </th>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 px-6 text-center">
                 Volume
               </th>
               <th scope="col" className="py-3 px-6 text-center">
@@ -121,11 +137,11 @@ function Table({ dark, filteredCoins, data}) {
                   <td className="py-4 px-6">
                     <b>${coin.current_price.toLocaleString()}</b>
                   </td>
-                  {coin.price_change_percentage_24h.toFixed(2)>0 && <td className="text-green-600 font-semibold py-4 px-6">
-                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  {coin.price_change_percentage_24h.toFixed(2)>0 && <td className="flex text-green-600 font-semibold py-4 px-6">
+                  <AiFillCaretUp className="mt-1 mr-1"/>{coin.price_change_percentage_24h.toFixed(2)}%
                   </td>}
-                  {coin.price_change_percentage_24h.toFixed(2)<0 && <td className="text-red-600 font-semibold py-4 px-6">
-                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  {coin.price_change_percentage_24h.toFixed(2)<0 && <td className="flex text-red-600 font-semibold py-4 px-6">
+                  <AiFillCaretDown className="mt-1 mr-1"/>{coin.price_change_percentage_24h.toFixed(2)}%
                   </td>}
                   <td className="py-4 px-6">
                     ${coin.market_cap.toLocaleString()}
@@ -139,7 +155,7 @@ function Table({ dark, filteredCoins, data}) {
                       {coin.symbol.toUpperCase()}
                     </span>
                   </td>
-                  <td className="py-4 px-6">
+                  <td className="md:px-2 md:py-2">
                     {" "}
                     <img src={graphImage}></img>
                   </td>

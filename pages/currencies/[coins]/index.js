@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { AiOutlineLink } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineLink, AiFillDollarCircle } from "react-icons/ai";
 import { BiLinkExternal } from "react-icons/bi";
-
+import { BsArrowLeftRight } from "react-icons/bs";
 // import { useRouter } from "next/router";
 
 const Coins = ({ dark, coin }) => {
+  const [coiin, setCoiin] = useState(1);
   // console.log({ coin });
 
   const capitalize = (str) => {
@@ -92,7 +93,7 @@ const Coins = ({ dark, coin }) => {
               }`}
             >
               <span>
-                  <img src={coin.image.small} alt="" />
+                <img src={coin.image.small} alt="" />
               </span>
               <span className="text-2xl md:text-4xl font-semibold  flex items-center justify-center ml-2">
                 {coin.name}
@@ -148,21 +149,35 @@ const Coins = ({ dark, coin }) => {
         </div>
 
         <div className="md:flex mt-3 md:h-40">
-          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}>
+          <div
+            className={`${
+              dark === "true" ? "bg-gray-400" : "bg-gray-200"
+            } md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}
+          >
             Market Cap{" "}
             <div className="font-semibold">
               {coin.market_data.market_cap.usd.toLocaleString()}
             </div>
           </div>
 
-          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}>
+          <div
+            className={`${
+              dark === "true" ? "bg-gray-400" : "bg-gray-200"
+            } md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}
+          >
             Fully Diluted Market Cap
-            {coin.market_data.fully_diluted_valuation==undefined && <div className="font-semibold">
-            {coin.market_data.fully_diluted_valuation.usd.toLocaleString()}
-            </div>}
+            {coin.market_data.fully_diluted_valuation == undefined && (
+              <div className="font-semibold">
+                {coin.market_data.fully_diluted_valuation.usd.toLocaleString()}
+              </div>
+            )}
           </div>
 
-          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}>
+          <div
+            className={`${
+              dark === "true" ? "bg-gray-400" : "bg-gray-200"
+            } md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2 p-4 text-sm border border-gray-800`}
+          >
             Volume
             <div className="font-semibold">
               {coin.market_data.total_volume.usd.toLocaleString()}
@@ -178,23 +193,78 @@ const Coins = ({ dark, coin }) => {
             </div>
           </div>
 
-          <div className={`${dark === "true" ? "bg-gray-400" : "bg-gray-200"} md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2  p-4 text-sm border border-gray-800`}>
+          <div
+            className={`${
+              dark === "true" ? "bg-gray-400" : "bg-gray-200"
+            } md:w-1/4 mt-2 rounded-md shadow-md shadow-gray-500 mr-2  p-4 text-sm border border-gray-800`}
+          >
             <div className="mt-3 font-semibold flex justify-between">
               <span>Circulating Supply:</span>$
               {coin.market_data.circulating_supply.toLocaleString()}
             </div>
-            {coin.market_data.max_supply!=null &&
-            <div className="mt-3 font-semibold flex justify-between">
-              <span>Max Supply:</span>$
-              {coin.market_data.max_supply.toLocaleString()}
-            </div>
-            }
+            {coin.market_data.max_supply != null && (
+              <div className="mt-3 font-semibold flex justify-between">
+                <span>Max Supply:</span>$
+                {coin.market_data.max_supply.toLocaleString()}
+              </div>
+            )}
             <div className="mt-3 font-semibold flex justify-between">
               <span>Total Supply:</span>$
               {coin.market_data.total_supply.toLocaleString()}
             </div>
           </div>
         </div>
+{/* 
+        <div className="mt-4 bg-gray-300 rounded p-3 mx-10 border border-gray-300 shadow-sm shadow-gray-500">
+          <div className="flex justify-between bg-red-400">
+            <div className="flex ">
+              <span className="w-32">
+                <img src={coin.image.small} alt="" />
+              </span>
+              <div className="ml-3">
+                {coin.symbol.toUpperCase()}
+                <div className="font-semibold text-xl">{coin.name}</div>
+              </div>
+            </div>
+
+            <span className="flex items-center  text-xl font-semibold">
+              <input
+                className="w-1/2 text-right px-2 bg-gray-200 rounded"
+                value={coiin}
+                onChange={(e) => {
+                  setCoiin(e.target.value);
+                }}
+              />
+            </span>
+            <span className="flex items-center font-bold rounded-full">
+              <BsArrowLeftRight className="font-bold" />
+            </span>
+            <div className="flex">
+              <span className="text-green-500 flex items-center">
+                <AiFillDollarCircle size={50} />
+              </span>
+              <div className="ml-3">
+                USD
+                <div className="font-semibold text-xl">
+                  United States Dollar
+                </div>
+              </div>
+            </div>
+
+            <span className="flex items-center  text-xl font-semibold">
+              $
+              <input
+                className="w-1/2 text-right px-2 bg-gray-200 rounded"
+                value={(
+                  coin.market_data.current_price.usd * coiin
+                ).toLocaleString()}
+                onChange={(e) => {
+                  setCoiin(e.target.value);
+                }}
+              />
+            </span>
+          </div>
+        </div> */}
       </div>
     </>
   );
