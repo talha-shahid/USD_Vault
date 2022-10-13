@@ -1,47 +1,85 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "../styles/Table.module.css";
 import Link from 'next/link'
 import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai' 
-import axios from 'axios'
-import { useQuery } from "react-query";
+// import axios from 'axios'
+// import { useQuery } from "react-query";
+// import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
-
-const fetchCrypto = ()=>{
-  return axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
-}
+// const fetchCrypto = ()=>{
+//   return axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
+// }
 
 
 function Table({ dark, filteredCoins}) {
+  //States
+  const [order, setOrder] = useState('ASD')
+  const [coins, setCoins] = useState(filteredCoins)
+  const [slicedCoins, setSlicedCoins] = useState(filteredCoins.slice(0, 100));
+  const [pageNumber, setPageNumber] = useState(0);
+  const [count, setCount] = useState(0)
+  const [count2, setCount2] = useState(0)
+  const [count3, setCount3] = useState(0)
+  const [count4, setCount4] = useState(0)
+  const [count5, setCount5] = useState(0)
+  const [count6, setCount6] = useState(0)
 
-  const { isLoading, data} = useQuery(
-    'crypto',fetchCrypto,
-    {
-      refetchInterval: 300000,
-    }
-  );
+  const [id, setId] = useState(null)
+  
 
 
+  const coinsPerPage = 10;
+  const pagesVisited = pageNumber * coinsPerPage;
+  const pageCount = Math.ceil(slicedCoins.length / coinsPerPage);
 
+  //React Query
+  // const { isLoading, data} = useQuery(
+  //   'crypto',fetchCrypto,
+  //   {
+  //     refetchInterval: 300000,
+  //   }
+  // );
 
+  //Graph Image
   const graphImage ='https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/52.svg'
 
+  //Sorting
+  const sorting = (col)=>{
+    console.log("sorting is clicked")
+    if (order ==='ASD'){
+      const sorted = [...coins].sort((a,b)=>
+        a[col] > b[col] ? 1 : -1
+      )
+      setCoins(sorted);
+      setOrder('DSC')
+    }
 
-  const [users, setUsers] = useState(filteredCoins.slice(0, 100));
-  // const [users, setUsers] = useState(filteredCoins);
-  const [pageNumber, setPageNumber] = useState(0);
-  const usersPerPage = 10;
-  const pagesVisited = pageNumber * usersPerPage;
-  const pageCount = Math.ceil(users.length / usersPerPage);
+    if (order ==='DSC'){
+      const sorted = [...coins].sort((a,b)=>
+        a[col] < b[col] ? 1 : -1
+      )
+      setCoins(sorted);
+      setOrder('ASD')
+    }
+  }
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
 
+  // if(isLoading){
+  //   return <>
+  //   <div><Skeleton height={40}/></div>
+  //   <div><Skeleton count={10} height={30}/>
+  //   </div>  </>
+  // }
+
   return (
     <>
-      <style jsx>{`
 
+      <style jsx>{`
         table thead #table-head-name{
           position: sticky;
           left: 0;
@@ -58,6 +96,7 @@ function Table({ dark, filteredCoins}) {
           background: ${dark === "true" ? "#111827" : "#e2e8f0"};
         }
       `}</style>
+
       <div className="overflow-x-auto relative">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead 
@@ -71,23 +110,41 @@ function Table({ dark, filteredCoins}) {
               <th scope="col" className="py-3 px-6">
                 #
               </th>
-              <th scope="col" className="py-3 px-6" id="table-head-name">
-                Name
+              <th onClick={()=>{sorting("name"); setCount(count + 1); setId(1)}} scope="col" className="py-3 px-6 cursor-pointer" id="table-head-name">
+                <span className="flex">Name 
+                {count != 0 && count%2 != 0 && id===1 && <AiFillCaretUp className="mt-0.5"/>}
+                {count != 0 && count%2 == 0 && id===1 && <AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
-              <th scope="col" className="py-3 px-6">
-                Price
+              <th onClick={()=>{sorting("current_price"); setCount2(count2 + 1); setId(2)}} scope="col" className="py-3 px-6 cursor-pointer">
+                <span className="flex">Price
+                {count2 != 0 && count2%2 != 0 && id===2 && <AiFillCaretUp className="mt-0.5"/>}
+                {count2 != 0 && count2%2 == 0 && id===2 && <AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
-              <th scope="col" className="py-3 px-6 text-center">
-                24h
+              <th onClick={()=>{sorting("price_change_percentage_24h"); setCount3(count3 + 1); setId(3)}} scope="col" className="py-3 px-6 text-center cursor-pointer">
+                <span className="flex">24h 
+                {count3 != 0 && count3%2 != 0 && id===3 && <AiFillCaretUp className="mt-0.5"/>}
+                {count3 != 0 && count3%2 == 0 && id===3 && <AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
-              <th scope="col" className="py-3 px-6 text-center">
-                Market Cap
+              <th onClick={()=>{sorting("market_cap"); setCount4(count4 + 1); setId(4)}} scope="col" className="py-3 px-6 text-center cursor-pointer">
+                <span className="flex">Market Cap
+                {count4 != 0 && count4%2 != 0 && id===4 && <AiFillCaretUp className="mt-0.5"/>}
+                {count4 != 0 && count4%2 == 0 && id===4 &&<AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
-              <th scope="col" className="py-3 px-6 text-center">
-                Volume
+              <th onClick={()=>{sorting("total_volume"); setCount5(count5 + 1); setId(5)}} scope="col" className="py-3 px-6 text-center cursor-pointer">
+                <span className="flex">Volume
+                {count5 != 0 && count5%2 != 0 && id===5 && <AiFillCaretUp className="mt-0.5"/>}
+                {count5 != 0 && count5%2 == 0 && id===5 &&<AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
-              <th scope="col" className="py-3 px-6 text-center">
-                Circulating Supply
+              <th onClick={()=>{sorting("circulating_supply"); setCount6(count6 + 1); setId(6)}} scope="col" className="py-3 px-6 text-center cursor-pointer">
+                <span className="flex">Circulating Supply
+                {count6 != 0 && count6%2 != 0 && id===6 &&<AiFillCaretUp className="mt-0.5"/>}
+                {count6 != 0 && count6%2 == 0 && id===6 &&<AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
               <th scope="col" className="py-3 px-6 text-center">
                 Graph
@@ -96,8 +153,8 @@ function Table({ dark, filteredCoins}) {
           </thead>
 
           <tbody>
-            {data?.data
-              .slice(pagesVisited, pagesVisited + usersPerPage)
+            {coins
+              .slice(pagesVisited, pagesVisited + coinsPerPage)
               .map((coin) => (
                 <tr
                   key={coin.id}
@@ -132,6 +189,9 @@ function Table({ dark, filteredCoins}) {
                       <span className="text-gray-500 ml-1">
                         {coin.symbol.toUpperCase()}
                       </span>
+                      {/* <span>{console.log(count)}</span> */}
+                      {/* <span>{console.log(index)}</span> */}
+                      {/* <span>{console.log(data.data[index+1].current_price > data.data[index].current_price)}</span> */}
                     </div>
                   </th>
                   <td className="py-4 px-6">
