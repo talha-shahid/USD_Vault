@@ -19,6 +19,7 @@ function Table({ dark, filteredCoins}) {
   const [coins, setCoins] = useState(filteredCoins)
   const [slicedCoins, setSlicedCoins] = useState(filteredCoins.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
+  const [count0, setCount0] = useState(0)
   const [count, setCount] = useState(0)
   const [count2, setCount2] = useState(0)
   const [count3, setCount3] = useState(0)
@@ -107,8 +108,12 @@ function Table({ dark, filteredCoins}) {
             }`}
           >
             <tr>
-              <th scope="col" className="py-3 px-6">
+              <th onClick={()=>{sorting("market_cap_rank"); setCount0(count0 + 1); setId(0)}} scope="col" className="py-3 px-6 cursor-pointer">
+                <span className="flex">
                 #
+                {count0 != 0 && count0%2 != 0 && id===0 && <AiFillCaretUp className="mt-0.5"/>}
+                {count0 != 0 && count0%2 == 0 && id===0 && <AiFillCaretDown className="mt-0.5"/>}
+                </span>
               </th>
               <th onClick={()=>{sorting("name"); setCount(count + 1); setId(1)}} scope="col" className="py-3 px-6 cursor-pointer" id="table-head-name">
                 <span className="flex">Name 

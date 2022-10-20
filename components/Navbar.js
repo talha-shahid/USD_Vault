@@ -7,27 +7,39 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import Accordion from "./Accordion";
 import Search from "./Search";
+import SearchMobile from "./SearchMobile";
 
-const Navbar = (props, {count}) => {
+const Navbar = (props, { count }) => {
   const [dropDown, setDropDown] = useState(false);
   const [navres, setNavres] = useState(false);
   const [search, setSearch] = useState(false);
+  const [searchHidden, setSearchHidden] = useState("hidden");
+
+  const hideSearch = () => {
+    if (searchHidden === "hidden") {
+      setSearchHidden("block");
+    } else if (searchHidden === "block") {
+      setSearchHidden("hidden");
+    }
+  };
   // const [count, setCount] = useGlobalState('count');
 
   const displayNav = () => {
     setNavres(!navres);
-    if(count==false){
-      setCount(true)
+    if (count == false) {
+      setCount(true);
+    } else if (count == true) {
+      setCount(false);
     }
-    else if (count== true) {
-      setCount(false)
-    }
-
   };
 
   const displaySearch = () => {
     setSearch(!search);
   };
+
+  const hideNavRes = ()=>{
+    setNavres(false)
+  }
 
   return (
     <>
@@ -47,7 +59,7 @@ const Navbar = (props, {count}) => {
                     alt="Logo"
                   />
                 </span>
-                <span
+                <span onClick={hideNavRes}
                   className={`self-center text-2xl leading-10 font-semibold whitespace-nowrap font-pacifico tracking-wider ${
                     props.dark === "true" ? "text-white" : "text-black"
                   }`}
@@ -58,12 +70,18 @@ const Navbar = (props, {count}) => {
             </a>
           </Link>
 
-          {/* hamburger */}
-          {/* <button onClick={displayNav} data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-      <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-    </button> */}
-
+          {/* In a responsive screen, by default hamburger is showing, onClicking cross icon is displayed*/}
           {navres === false ? (
+            <div className="flex">
+              <div
+                className={` flex justify-center items-center p-2 mr-2 rounded-full md:hidden cursor-pointer ${
+                  props.dark === "true"
+                    ? "bg-gray-100 "
+                    : "bg-gray-900 font-bold text-white"
+                }`}
+              >
+                <BsSearch onClick={hideSearch} />
+              </div>
 
               <span
                 className={` border border-black md:border-0 rounded p-1 ${
@@ -80,7 +98,7 @@ const Navbar = (props, {count}) => {
                   size={20}
                 />
               </span>
-
+            </div>
           ) : (
             <AiFillCloseCircle
               onClick={displayNav}
@@ -92,8 +110,6 @@ const Navbar = (props, {count}) => {
               }`}
             />
           )}
-
-          {/* <AiOutlineCloseCircle onClick={displayNav}/> */}
 
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul
@@ -141,7 +157,6 @@ const Navbar = (props, {count}) => {
 
                   {dropDown && (
                     <div className=" absolute top-13 right-30 bg-gray-100  rounded-md p-5 w-1/4 z-50">
-                      {/* <div className=" bg-gray-100 transform w-9 h-6 relative -mt-1 -top-5 rounded-sm rotate-45 "></div> */}
                       <ul>
                         <Link href={"/myaccount"}>
                           <a>
@@ -244,15 +259,18 @@ const Navbar = (props, {count}) => {
         </div>
       </nav>
 
+      {/* NavBar Responsive */}
+
       <div
         className={`h-screen w-full z-50 top-14 ${
           props.dark === "true" ? "bg-gray-900 text-white" : "bg-white"
         } ${navres === true ? "fixed" : "hidden"}`}
       >
 
-        <div className="md:hidden block">
+        {/* Accordion */}
+        <Accordion dark={props.dark} />
 
-        <div className="flex">
+        {/* Dark Mode in Mobile */}
         <div className=" w-12 flex items-center justify-center p-5 rounded-full">
           {props.dark === "true" && (
             <li className="list-none bg-gray-400 p-2 rounded-full">
@@ -274,17 +292,12 @@ const Navbar = (props, {count}) => {
             </li>
           )}
         </div>
-
-        <div className="flex items-center">
-          <Search dark={props.dark}/>
-        </div>
-        </div>
-
-        </div>
-
-        <Accordion dark={props.dark} />
       </div>
+
+      {/* Search Button in Mobile */}
+      <SearchMobile searchHidden={searchHidden} hideSearch={hideSearch}/>
     </>
   );
 };
+
 export default Navbar;

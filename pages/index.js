@@ -8,9 +8,9 @@ import ScrollToTop from "react-scroll-to-top";
 import {useQuery} from 'react-query'
 import axios from 'axios'
 
-// const fetchCrypto = ()=>{
-//   return axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
-// }
+const fetchCrypto = ()=>{
+  return axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=false")
+}
 
 export default function Home({ dark, filteredCoins }) {
 
@@ -22,7 +22,7 @@ export default function Home({ dark, filteredCoins }) {
   //   }
   // );
 
-   
+  //  console.log(data?.data)
 
 
 
@@ -106,7 +106,7 @@ export default function Home({ dark, filteredCoins }) {
         </div>
       </div>
 
-      <Table dark={dark} filteredCoins={filteredCoins} />
+      <Table dark={dark} filteredCoins={filteredCoins}/>
       <div
         className={`${
           dark === "true" ? "border-y border-white" : "border-y border-gray-500"
